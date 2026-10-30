@@ -53,7 +53,7 @@ export const CustomCursor: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="hidden lg:block pointer-events-none fixed inset-0 z-50 overflow-hidden">
+    <div className="hidden lg:block pointer-events-none fixed inset-0 z-50 overflow-hidden" aria-hidden="true">
       {/* Outer subtle ring */}
       <motion.div
         className="fixed top-0 left-0 rounded-full pointer-events-none"

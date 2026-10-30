@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, ExternalLink, Copy, Check, Send, MapPin, Sparkles } from 'lucide-react';
-import { DESIGNER_INFO } from '../data/behanceProjects';
-import { MagneticButton } from './MagneticButton';
+import { SITE_CONFIG } from '../../config/siteConfig';
+import { MagneticButton } from '../../components/common/MagneticButton';
+import { generateSafeMailto, sanitizeHeaderInput, sanitizeMessageBody } from '../../utils/security';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -11,17 +12,20 @@ export const Contact: React.FC = () => {
   const [projectMessage, setProjectMessage] = useState('');
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(DESIGNER_INFO.email);
+    navigator.clipboard.writeText(SITE_CONFIG.designer.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const generateMailtoLink = () => {
-    const subject = encodeURIComponent(`Design Inquiry: ${projectType} — ${senderName || 'New Client'}`);
-    const body = encodeURIComponent(
-      `Hello Jabir,\n\nMy name: ${senderName || '[Your Name]'}\nProject Type: ${projectType}\n\nProject Details:\n${projectMessage || '[Describe your design requirements, timeline, or objectives here]'}\n\nBest regards,\n${senderName || ''}`
-    );
-    return `mailto:${DESIGNER_INFO.email}?subject=${subject}&body=${body}`;
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const mailtoUri = generateSafeMailto({
+      recipientEmail: SITE_CONFIG.designer.email,
+      senderName,
+      projectType,
+      projectMessage,
+    });
+    window.location.href = mailtoUri;
   };
 
   return (
@@ -94,10 +98,10 @@ export const Contact: React.FC = () => {
                       DIRECT EMAIL ADDRESS
                     </p>
                     <a 
-                      href={`mailto:${DESIGNER_INFO.email}`}
+                      href={`mailto:${SITE_CONFIG.designer.email}`}
                       className="text-white hover:text-cyanAccent font-mono text-sm md:text-base font-semibold truncate block transition-colors"
                     >
-                      {DESIGNER_INFO.email}
+                      {SITE_CONFIG.designer.email}
                     </a>
                   </div>
                 </div>
@@ -127,7 +131,7 @@ export const Contact: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.28 }}
-                href={DESIGNER_INFO.behanceUrl}
+                href={SITE_CONFIG.designer.behanceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-magenta flex items-center justify-between gap-4 backdrop-blur-xs transition-colors block"
@@ -164,14 +168,14 @@ export const Contact: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="flex flex-wrap items-center gap-4"
             >
-              <MagneticButton href={`mailto:${DESIGNER_INFO.email}?subject=Project%20Inquiry%20%E2%80%94%20Jabir%20Mahmud%20Kawsar`}>
+              <MagneticButton href={`mailto:${SITE_CONFIG.designer.email}?subject=Project%20Inquiry%20%E2%80%94%20Jabir%20Mahmud%20Kawsar`}>
                 <div className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-cobalt hover:bg-gradient-to-r hover:from-cobalt hover:to-magenta text-white font-mono text-xs tracking-wider font-semibold shadow-lg shadow-cobalt/25 hover:shadow-magenta/30 transition-all">
                   <Mail className="w-4 h-4" />
                   <span>LET'S TALK ABOUT YOUR PROJECT</span>
                 </div>
               </MagneticButton>
 
-              <MagneticButton href={DESIGNER_INFO.behanceUrl} target="_blank" rel="noopener noreferrer">
+              <MagneticButton href={SITE_CONFIG.designer.behanceUrl} target="_blank" rel="noopener noreferrer">
                 <div className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-magenta font-mono text-xs tracking-wider font-semibold transition-all">
                   <span>EXPLORE MY BEHANCE</span>
                   <ExternalLink className="w-4 h-4 text-cyanAccent" />
@@ -204,10 +208,7 @@ export const Contact: React.FC = () => {
               </p>
 
               <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  window.location.href = generateMailtoLink();
-                }}
+                onSubmit={handleFormSubmit}
                 className="space-y-4"
               >
                 <div>
@@ -217,8 +218,9 @@ export const Contact: React.FC = () => {
                   <input
                     id="name-input"
                     type="text"
+                    maxLength={100}
                     value={senderName}
-                    onChange={(e) => setSenderName(e.target.value)}
+                    onChange={(e) => setSenderName(sanitizeHeaderInput(e.target.value, 100))}
                     placeholder="e.g. Sarah Jenkins or Studio Apex"
                     className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white text-sm focus:outline-hidden focus:border-magenta transition-colors font-sans placeholder:text-white/30"
                   />
@@ -250,8 +252,9 @@ export const Contact: React.FC = () => {
                   <textarea
                     id="project-brief-input"
                     rows={3}
+                    maxLength={2000}
                     value={projectMessage}
-                    onChange={(e) => setProjectMessage(e.target.value)}
+                    onChange={(e) => setProjectMessage(sanitizeMessageBody(e.target.value, 2000))}
                     placeholder="Tell me a bit about your visual goals, timeline, and expectations..."
                     className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white text-sm focus:outline-hidden focus:border-magenta transition-colors font-sans placeholder:text-white/30 resize-none"
                   />
@@ -268,7 +271,7 @@ export const Contact: React.FC = () => {
                 </MagneticButton>
 
                 <p className="text-[11px] font-mono text-center text-white/40 pt-1">
-                  Sends directly to <span className="text-cyanAccent">{DESIGNER_INFO.email}</span>
+                  Sends directly to <span className="text-cyanAccent">{SITE_CONFIG.designer.email}</span>
                 </p>
               </form>
             </div>

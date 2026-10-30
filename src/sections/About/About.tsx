@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Compass, Eye, PenTool, Sparkles } from 'lucide-react';
-import { DESIGNER_INFO } from '../data/behanceProjects';
-import { MagneticButton } from './MagneticButton';
+import { DESIGNER_INFO } from '../../data/behanceProjects';
+import { MagneticButton } from '../../components/common/MagneticButton';
+import { SITE_CONFIG } from '../../config/siteConfig';
 
 export const About: React.FC = () => {
   const [portraitError, setPortraitError] = useState(false);
@@ -26,9 +27,13 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-24 md:py-36 px-6 md:px-12 bg-ivory-light border-y border-ink-border/50 relative overflow-hidden paper-grain">
+    <section 
+      id="about" 
+      className="py-24 md:py-36 px-6 md:px-12 bg-ivory-light border-y border-ink-border/50 relative overflow-hidden paper-grain"
+      aria-label="About the Designer"
+    >
       {/* Background Graphic Typography Watermark */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.03] font-headline font-black text-[22vw] leading-none text-ink">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.03] font-headline font-black text-[22vw] leading-none text-ink" aria-hidden="true">
         KAWSAR
       </div>
 
@@ -45,21 +50,21 @@ export const About: React.FC = () => {
           >
             <div className="relative mx-auto max-w-md">
               {/* Refined Gold & Magenta Accent Corner Pins */}
-              <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-magenta pointer-events-none" />
-              <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-gold pointer-events-none" />
+              <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-magenta pointer-events-none" aria-hidden="true" />
+              <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-gold pointer-events-none" aria-hidden="true" />
 
               {/* Main Frame with Dual Rim Lighting and Mask Reveal */}
               <div className="rounded-3xl overflow-hidden bg-white border border-ink-border/80 shadow-2xl p-4 transition-transform duration-500 hover:scale-[1.01]">
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-[#280A12] to-[#120408] flex flex-col justify-between p-7 text-white">
                   
                   {/* Subtle Accent Glow */}
-                  <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-magenta/20 blur-3xl pointer-events-none" />
-                  <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-cobalt/20 blur-3xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-magenta/20 blur-3xl pointer-events-none" aria-hidden="true" />
+                  <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-cobalt/20 blur-3xl pointer-events-none" aria-hidden="true" />
 
                   {!portraitError ? (
                     <img
-                      src="/images/portrait.jpg"
-                      alt="Portrait of Jabir Mahmud Kawsar"
+                      src="./images/portrait.jpg"
+                      alt="Natural portrait of Jabir Mahmud Kawsar"
                       onError={() => setPortraitError(true)}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     />
@@ -76,16 +81,18 @@ export const About: React.FC = () => {
                   {/* Monogram Badge Fallback */}
                   <div className="relative z-10 my-auto text-center py-6">
                     <div className="w-24 h-24 mx-auto rounded-2xl bg-white/10 border-2 border-gold/60 flex items-center justify-center text-ivory mb-4 shadow-xl backdrop-blur-md">
-                      <span className="font-headline font-bold text-4xl text-white">JM</span>
+                      <span className="font-headline font-bold text-4xl text-white">
+                        {SITE_CONFIG.designer.monogram}
+                      </span>
                     </div>
                     <h3 className="font-headline text-2xl font-bold text-white mb-1">
-                      {DESIGNER_INFO.fullName}
+                      {SITE_CONFIG.designer.fullName}
                     </h3>
                     <p className="font-mono text-xs text-gold uppercase tracking-widest font-semibold">
-                      {DESIGNER_INFO.title}
+                      {SITE_CONFIG.designer.title}
                     </p>
                     <p className="font-mono text-[11px] text-white/60 mt-1">
-                      {DESIGNER_INFO.location}
+                      {SITE_CONFIG.designer.location}
                     </p>
                   </div>
 
@@ -98,12 +105,12 @@ export const About: React.FC = () => {
 
                 {/* Sub-label under portrait */}
                 <div className="p-4 flex items-center justify-between text-xs font-mono text-ink-muted">
-                  <span>LOCATION: COMILLA, BD</span>
+                  <span>LOCATION: {SITE_CONFIG.designer.location}</span>
                   <a
                     href={DESIGNER_INFO.behanceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cobalt hover:text-magenta flex items-center gap-1 font-semibold transition-colors"
+                    className="text-cobalt hover:text-magenta flex items-center gap-1 font-semibold transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt rounded"
                   >
                     <span>BEHANCE PROFILE</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -203,7 +210,7 @@ export const About: React.FC = () => {
               </MagneticButton>
 
               <span className="font-mono text-xs text-ink-muted">
-                Comilla, Bangladesh
+                {SITE_CONFIG.designer.location}
               </span>
             </motion.div>
           </div>

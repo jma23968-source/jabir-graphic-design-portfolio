@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BehanceProject } from '../types';
+import { BehanceProject } from '../../types';
 import { ProjectArtworkFallback } from './ProjectArtworkFallback';
 import { ArrowUpRight, Layers, Sparkles } from 'lucide-react';
 
@@ -23,7 +23,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect, ind
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay: (index % 4) * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative rounded-3xl overflow-hidden border border-ink-border/60 bg-white shadow-xs hover:shadow-2xl transition-all duration-500 cursor-pointer ${project.gridSpan || 'col-span-12 md:col-span-6'}`}
+      className={`group relative rounded-3xl overflow-hidden border border-ink-border/60 bg-white shadow-xs hover:shadow-2xl transition-all duration-500 cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt ${project.gridSpan || 'col-span-12 md:col-span-6'}`}
       onClick={() => onSelect(project)}
       role="button"
       tabIndex={0}

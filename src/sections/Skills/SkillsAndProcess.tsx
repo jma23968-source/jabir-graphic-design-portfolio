@@ -1,5 +1,6 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { SkillItem, ProcessStep } from '../types';
+import { SkillItem, ProcessStep } from '../../types';
 
 export const SkillsAndProcess: React.FC = () => {
   const skills: SkillItem[] = [

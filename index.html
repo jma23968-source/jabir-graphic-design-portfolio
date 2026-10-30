@@ -2,22 +2,150 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="theme-color" content="#140408" />
+
+    <!-- ============================================================
+         SECURITY META HEADERS
+         Note: HTTP-level headers (CSP, HSTS, etc.) are set in
+         public/_headers for GitHub Pages / Netlify / Cloudflare.
+         The meta equivalents below provide defense-in-depth for
+         environments that do not support custom response headers.
+         ============================================================ -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <!-- Content-Security-Policy meta tag — keeps inline styles from Tailwind
+         working while blocking dangerous injections.
+         'unsafe-inline' is required only for Tailwind JIT inline styles
+         loaded from CDN / Google Fonts during SSR; the Vite build inlines
+         nothing dynamic so this remains safe in production. -->
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src  'self' 'unsafe-inline';
+        style-src   'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src    'self' https://fonts.gstatic.com;
+        img-src     'self' data: https: blob:;
+        connect-src 'self';
+        frame-src   'none';
+        object-src  'none';
+        base-uri    'self';
+        form-action 'self' mailto:;
+      " />
+    <meta http-equiv="Permissions-Policy"
+      content="camera=(), microphone=(), geolocation=(), payment=()" />
+
+    <!-- ============================================================
+         CORE VIEWPORT & THEME
+         ============================================================ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JABIR MAHMUD KAWSAR — Graphic Designer & Visual Creator</title>
-    <meta name="description" content="Portfolio of Jabir Mahmud Kawsar, a graphic designer & visual creator from Comilla, Bangladesh specializing in packaging, advertising, brand identity, and print design." />
+    <meta name="theme-color" content="#140408" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- ============================================================
+         FAVICON & APP ICONS
+         ============================================================ -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./favicon.svg" />
+    <link rel="manifest" href="./site.webmanifest" crossorigin="use-credentials" />
+
+    <!-- ============================================================
+         PRIMARY SEO METADATA
+         ============================================================ -->
+    <title>JABIR MAHMUD KAWSAR — Graphic Designer &amp; Visual Creator</title>
+    <meta name="description"
+      content="Portfolio of Jabir Mahmud Kawsar, a graphic designer &amp; visual creator from Comilla, Bangladesh. Specializing in packaging design, brand identity, poster design, social media graphics, and photo compositing." />
     <meta name="author" content="Jabir Mahmud Kawsar" />
-    
-    <!-- OpenGraph / Social -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="JABIR MAHMUD KAWSAR — Graphic Designer & Visual Creator" />
-    <meta property="og:description" content="Ideas, Made Visible. With Purpose. Graphic designer from Comilla, Bangladesh." />
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords"
+      content="graphic designer, visual creator, packaging design, brand identity, poster design, social media design, photo editing, Comilla, Bangladesh, Jabir Mahmud Kawsar" />
+    <link rel="canonical" href="https://jma23968-source.github.io/jabir-graphic-design-portfolio/" />
+
+    <!-- ============================================================
+         OPEN GRAPH (Facebook, LinkedIn, WhatsApp)
+         ============================================================ -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://jma23968-source.github.io/jabir-graphic-design-portfolio/" />
+    <meta property="og:title"       content="JABIR MAHMUD KAWSAR — Graphic Designer &amp; Visual Creator" />
+    <meta property="og:description" content="Ideas, Made Visible. With Purpose. Graphic designer &amp; visual creator from Comilla, Bangladesh." />
+    <meta property="og:image"       content="https://jma23968-source.github.io/jabir-graphic-design-portfolio/images/og-preview.jpg" />
+    <meta property="og:image:alt"   content="Jabir Mahmud Kawsar — Graphic Design Portfolio" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale"      content="en_US" />
+    <meta property="og:site_name"   content="Jabir Mahmud Kawsar Portfolio" />
+
+    <!-- ============================================================
+         TWITTER / X CARD
+         ============================================================ -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="JABIR MAHMUD KAWSAR — Graphic Designer &amp; Visual Creator" />
+    <meta name="twitter:description" content="Ideas, Made Visible. Graphic designer from Comilla, Bangladesh." />
+    <meta name="twitter:image"       content="https://jma23968-source.github.io/jabir-graphic-design-portfolio/images/og-preview.jpg" />
+
+    <!-- ============================================================
+         GOOGLE FONTS — performance-optimised loading
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ============================================================
+         SCHEMA.ORG STRUCTURED DATA (JSON-LD)
+         Helps Google display rich cards for the portfolio.
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "JABIR MAHMUD KAWSAR — Graphic Designer & Visual Creator",
+      "url": "https://jma23968-source.github.io/jabir-graphic-design-portfolio/",
+      "description": "Portfolio of Jabir Mahmud Kawsar, graphic designer & visual creator from Comilla, Bangladesh.",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Jabir Mahmud Kawsar",
+        "jobTitle": "Graphic Designer & Visual Creator",
+        "url": "https://www.behance.net/jabirmahmudk",
+        "email": "jabirmahmudk@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Comilla",
+          "addressCountry": "BD"
+        },
+        "sameAs": [
+          "https://www.behance.net/jabirmahmudk"
+        ],
+        "knowsAbout": [
+          "Graphic Design",
+          "Packaging Design",
+          "Brand Identity",
+          "Poster Design",
+          "Social Media Design",
+          "Photo Editing",
+          "Adobe Photoshop",
+          "Adobe Illustrator"
+        ]
+      }
+    }
+    </script>
+
+    <!-- ============================================================
+         REDUCED-MOTION ACCESSIBILITY OVERRIDE
+         Disables CSS animations for users with prefers-reduced-motion.
+         Framer Motion respects this via its built-in reducedMotion hook.
+         ============================================================ -->
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
   </head>
   <body class="bg-ivory text-ink selection:bg-cobalt selection:text-white font-sans antialiased overflow-x-hidden">
     <div id="root"></div>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BEHANCE_CATEGORIES, BEHANCE_PROJECTS } from '../data/behanceProjects';
-import { BehanceProject, ProjectCategory } from '../types';
-import { ProjectCard } from './ProjectCard';
+import { BEHANCE_CATEGORIES, BEHANCE_PROJECTS } from '../../data/behanceProjects';
+import { BehanceProject, ProjectCategory } from '../../types';
+import { ProjectCard } from '../../components/portfolio/ProjectCard';
+import { MagneticButton } from '../../components/common/MagneticButton';
+import { SITE_CONFIG } from '../../config/siteConfig';
 import { ExternalLink, Sparkles, Filter } from 'lucide-react';
-import { MagneticButton } from './MagneticButton';
 
 interface SelectedWorkProps {
   onSelectProject: (project: BehanceProject) => void;
@@ -72,7 +73,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onSelectProject }) =
           {/* Behance Link Badge with Magnetic Touch */}
           <div className="flex items-center gap-3">
             <MagneticButton 
-              href="https://www.behance.net/jabirmahmudk"
+              href={SITE_CONFIG.designer.behanceUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -148,7 +149,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onSelectProject }) =
             <span>ALL {BEHANCE_PROJECTS.length} PROJECTS SOURCED FROM BEHANCE // JABIR MAHMUD KAWSAR</span>
           </div>
           <a
-            href="https://www.behance.net/jabirmahmudk"
+            href={SITE_CONFIG.designer.behanceUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-cobalt hover:text-magenta transition-colors inline-flex items-center gap-1.5 font-semibold"

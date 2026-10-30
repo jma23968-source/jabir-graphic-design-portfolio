@@ -1,0 +1,17 @@
+{
+  "name": "JABIR MAHMUD KAWSAR — Graphic Designer",
+  "short_name": "JM Portfolio",
+  "description": "Graphic Designer & Visual Creator from Comilla, Bangladesh.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FAF8F4",
+  "theme_color": "#140408",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

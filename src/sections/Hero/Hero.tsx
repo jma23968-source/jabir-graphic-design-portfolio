@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, Sparkles, MapPin } from 'lucide-react';
-import { DESIGNER_INFO } from '../data/behanceProjects';
-import { FloatingCreativeObject } from './FloatingCreativeObject';
-import { MagneticButton } from './MagneticButton';
+import { DESIGNER_INFO } from '../../data/behanceProjects';
+import { FloatingCreativeObject } from '../../components/animations/FloatingCreativeObject';
+import { MagneticButton } from '../../components/common/MagneticButton';
+import { SITE_CONFIG } from '../../config/siteConfig';
 
 export const Hero: React.FC = () => {
   const [portraitError, setPortraitError] = useState(false);
@@ -42,23 +43,18 @@ export const Hero: React.FC = () => {
     };
   }, [isDesktop, mouseX, mouseY]);
 
-  const categories = [
-    'Packaging Design',
-    'Product Advertising',
-    'Print & Editorial',
-    'Visual Identity',
-    'Promotional Media'
-  ];
+  const categories = SITE_CONFIG.categories;
 
   return (
     <section 
       id="home"
       className="relative min-h-screen pt-28 pb-16 px-6 md:px-12 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-[#1F070E] via-[#140408] to-[#0E0206] text-white paper-grain-dark"
+      aria-label="Introduction & Hero"
     >
       {/* Cinematic Ambient Atmosphere Lighting (Burgundy, Cobalt & Magenta) */}
-      <div className="absolute top-1/4 right-5 w-[450px] h-[450px] rounded-full bg-cobalt/15 blur-[130px] pointer-events-none" />
-      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] rounded-full bg-magenta/15 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 left-1/3 w-[500px] h-[350px] rounded-full bg-burgundy-light/20 blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 right-5 w-[450px] h-[450px] rounded-full bg-cobalt/15 blur-[130px] pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/3 left-0 w-[400px] h-[400px] rounded-full bg-magenta/15 blur-[120px] pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-10 left-1/3 w-[500px] h-[350px] rounded-full bg-burgundy-light/20 blur-[140px] pointer-events-none" aria-hidden="true" />
 
       {/* Main Hero Container */}
       <div className="max-w-7xl mx-auto w-full relative z-10 my-auto">
@@ -131,7 +127,7 @@ export const Hero: React.FC = () => {
               </motion.div>
 
               {/* Animated Stroke Reveal Line */}
-              <svg className="hidden sm:block h-6 w-32 overflow-visible" viewBox="0 0 120 20">
+              <svg className="hidden sm:block h-6 w-32 overflow-visible" viewBox="0 0 120 20" aria-hidden="true">
                 <motion.path
                   d="M0 10 Q 60 18, 120 10"
                   fill="none"
@@ -243,14 +239,14 @@ export const Hero: React.FC = () => {
                 className="relative w-full h-full rounded-t-[132px] rounded-b-2xl overflow-hidden flex flex-col justify-between p-6 bg-gradient-to-b from-[#2A0C16] to-[#120408] text-white"
               >
                 {/* Background Geometric Grid Pattern */}
-                <div className="absolute inset-0 opacity-15 pointer-events-none">
+                <div className="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
                   <div className="w-full h-full bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
                 </div>
 
                 {!portraitError ? (
                   <img
-                    src="/images/portrait.jpg"
-                    alt="Jabir Mahmud Kawsar"
+                    src="./images/portrait.jpg"
+                    alt="Natural portrait of Jabir Mahmud Kawsar"
                     onError={() => setPortraitError(true)}
                     className="absolute inset-0 w-full h-full object-cover rounded-t-[132px] rounded-b-2xl transition-transform duration-700 hover:scale-105"
                   />
@@ -270,13 +266,13 @@ export const Hero: React.FC = () => {
                     <span className="font-headline font-bold text-3xl tracking-tighter">JM</span>
                   </div>
                   <h3 className="font-headline text-lg font-bold tracking-tight text-white mb-1">
-                    JABIR MAHMUD
+                    {SITE_CONFIG.designer.shortName}
                   </h3>
                   <p className="font-mono text-[11px] text-magenta uppercase tracking-widest font-semibold">
                     GRAPHIC DESIGNER
                   </p>
                   <p className="text-xs text-white/70 mt-1 font-mono">
-                    Comilla, Bangladesh
+                    {SITE_CONFIG.designer.location}
                   </p>
                 </div>
 
@@ -316,7 +312,7 @@ export const Hero: React.FC = () => {
         {/* Minimal Scroll Indicator */}
         <a 
           href="#work"
-          className="flex items-center gap-2 text-xs font-mono text-white/60 hover:text-cyanAccent transition-colors group cursor-pointer"
+          className="flex items-center gap-2 text-xs font-mono text-white/60 hover:text-cyanAccent transition-colors group cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt rounded"
           aria-label="Scroll down to Selected Work"
         >
           <span>SCROLL TO EXPLORE</span>
@@ -325,7 +321,7 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* Seamless Transition Border at bottom into warm ivory */}
-      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-ivory opacity-20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-ivory opacity-20 pointer-events-none" aria-hidden="true" />
     </section>
   );
 };

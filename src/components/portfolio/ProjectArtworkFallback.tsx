@@ -1,5 +1,5 @@
 import React from 'react';
-import { BehanceProject } from '../types';
+import { BehanceProject } from '../../types';
 import { ExternalLink, Layers, Sparkles, Box, FileText, Compass, CreditCard, Palette } from 'lucide-react';
 
 interface ProjectArtworkFallbackProps {
@@ -36,7 +36,7 @@ export const ProjectArtworkFallback: React.FC<ProjectArtworkFallbackProps> = ({ 
       style={{ backgroundColor: fallbackArtwork.themeColor }}
     >
       {/* Editorial Grid Overlay */}
-      <div className="absolute inset-0 opacity-15 pointer-events-none">
+      <div className="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id={`grid-${project.id}`} width="40" height="40" patternUnits="userSpaceOnUse">
@@ -51,10 +51,12 @@ export const ProjectArtworkFallback: React.FC<ProjectArtworkFallbackProps> = ({ 
       <div 
         className="absolute -right-20 -top-20 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
         style={{ backgroundColor: fallbackArtwork.accentColor }}
+        aria-hidden="true"
       />
       <div 
         className="absolute -left-16 -bottom-16 w-52 h-52 rounded-full blur-3xl opacity-10 pointer-events-none"
         style={{ backgroundColor: '#176BFF' }}
+        aria-hidden="true"
       />
 
       {/* Top Header Row */}

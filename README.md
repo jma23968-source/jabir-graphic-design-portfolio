@@ -1,52 +1,162 @@
-# JABIR MAHMUD KAWSAR — Graphic Design Portfolio Website
+# JABIR MAHMUD KAWSAR — Graphic Design Portfolio
 
-An original, editorial, motion-rich portfolio website built with React, TypeScript, Tailwind CSS, and Framer Motion.
+> **Live site:** https://jma23968-source.github.io/jabir-graphic-design-portfolio/
+> **Behance:** https://www.behance.net/jabirmahmudk
+> **Contact:** jabirmahmudk@gmail.com
 
-## 🌟 Visual Identity & Art Direction
-- **Primary Background**: Warm Ivory / Soft Paper White (`#F6F4EF`)
-- **Primary Text**: Rich Near-Black (`#141414`)
-- **Signature Accent**: Electric Cobalt Blue (`#176BFF`)
-- **Secondary Accent**: Soft Cyan (`#55C8FF`)
-- **Supporting Accents**: Deep Forest Green (`#143A32`) & Champagne Gold (`#C7A65B`)
-- **Typography**: Space Grotesk (Headlines), Inter (Body), Caveat (Signature Script), Space Mono (Labels & Plates)
+A premium, motion-rich graphic design portfolio built with React, TypeScript, Vite, Tailwind CSS, and Framer Motion. Features a cinematic hero section, filterable Behance project gallery, interactive project modals, and a secure contact form.
 
-## 📁 Verified Behance Project Catalogue
-All projects are directly sourced from the official profile: [https://www.behance.net/jabirmahmudk](https://www.behance.net/jabirmahmudk)
+---
 
-1. **Potato Chips Packaging Design** (Packaging Design)
-   - Behance: `https://www.behance.net/gallery/255851375/Potato-Chips-Packaging-Design`
-2. **Elegant Perfume Advertisement Design** (Product Advertising)
-   - Behance: `https://www.behance.net/gallery/253551113/Elegant-Perfume-Advertisement-Design`
-3. **ChocoBliss – Premium Chocolate Packaging Design** (Packaging Design)
-   - Behance: `https://www.behance.net/gallery/253487993/ChocoBliss-Premium-Chocolate-Packaging-Design`
-4. **Premium Restaurant Food Menu Flyer Design** (Print Design)
-   - Behance: `https://www.behance.net/gallery/253483897/Premium-Restaurant-Food-Menu-Flyer-Design`
-5. **Travel Agency Flyer Design 2026** (Promotional and Print Design)
-   - Behance: `https://www.behance.net/gallery/253481833/Travel-Agency-Flyer-Design-2026`
-6. **Clean & Professional Business Card Design** (Business Card and Print Design)
-   - Behance: `https://www.behance.net/gallery/253482657/Clean-Professional-Business-Card-Design`
-7. **Modern Visual Identity Design Showcase** (Branding and Visual Identity)
-   - Behance: `https://www.behance.net/gallery/249249721/Modern-Visual-Identity-Design-Showcase`
+## Quick Start
 
-## 🚀 How to Run Locally
-
-### Start Development Server
 ```bash
+# Clone
+git clone https://github.com/jma23968-source/jabir-graphic-design-portfolio.git
+cd jabir-graphic-design-portfolio
+
+# Install
+npm install
+
+# Develop
 npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+# → http://localhost:5173/
 
-### Build Production Bundle
-```bash
+# Build for production
 npm run build
+
+# Preview production build locally
+npm run preview
 ```
 
-## 🖼️ Adding Your Original Assets
+---
 
-1. **Portrait Photograph**:
-   - Save your portrait image as `public/images/portrait.jpg`.
-   - The website automatically renders it inside the arched editorial frame.
+## Tech Stack
 
-2. **Project Cover Images**:
-   - Save your high-resolution artwork covers inside `public/projects/`.
-   - Update or verify file names in `src/data/behanceProjects.ts`.
+| Technology | Version | Role |
+|---|---|---|
+| React | 18 | UI framework |
+| TypeScript | 5 | Type safety |
+| Vite | 6 | Build tool & dev server |
+| Tailwind CSS | 3 | Utility-first styling |
+| Framer Motion | 11 | Animations & transitions |
+| Lucide React | — | Icons |
+
+---
+
+## Project Structure
+
+```
+src/
+  App.tsx                  — Root component
+  components/
+    common/                — CustomCursor, MagneticButton, ImageUploadNotice
+    layout/                — Navbar, Footer
+    portfolio/             — ProjectCard, ProjectModal, ProjectArtworkFallback
+    animations/            — FloatingCreativeObject
+  sections/
+    Hero/                  — Cinematic landing section
+    About/                 — Designer bio & values
+    Projects/              — Behance gallery with category filters
+    Skills/                — 8 skill cards + 4-step process
+    Contact/               — Secure mailto contact form
+  data/
+    behanceProjects.ts     — 7 verified projects + designer info
+  config/
+    siteConfig.ts          — Single source of truth for all site metadata
+  utils/
+    security.ts            — Input sanitisation & safe mailto generation
+  types/
+    index.ts               — Shared TypeScript interfaces
+```
+
+Full structure documented in [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md).
+
+---
+
+## Adding / Updating Portfolio Projects
+
+Edit `src/data/behanceProjects.ts`. Each project follows this shape:
+
+```ts
+{
+  id: 'unique-id',
+  title: 'Project Title',
+  category: 'Packaging Design',     // Must match BEHANCE_CATEGORIES
+  description: 'Short description',
+  tags: ['Tag1', 'Tag2'],
+  behanceUrl: 'https://www.behance.net/gallery/...',
+  imageUrl: '/images/projects/filename.jpg',  // Optional; fallback shown if missing
+  featured: true,                             // Shown prominently in grid
+  colSpan: 7,                                 // 1–12 grid columns
+}
+```
+
+---
+
+## Available npm Scripts
+
+| Script | Command | Description |
+|---|---|---|
+| `dev` | `npm run dev` | Start Vite dev server |
+| `build` | `npm run build` | TypeScript check + Vite production build |
+| `preview` | `npm run preview` | Preview production build locally |
+| `lint` | `npm run lint` | ESLint check |
+
+---
+
+## Deployment
+
+Deployment is automated via GitHub Actions on every push to `main`.
+
+See [`docs/DEPLOYMENT_GUIDE.md`](docs/DEPLOYMENT_GUIDE.md) for:
+- Manual deployment steps
+- Netlify setup (recommended for HTTP security headers)
+- Security header configuration for various hosting platforms
+- Production verification checklist
+
+---
+
+## Security
+
+This is a frontend-only static site with no backend, no database, and no authentication.
+
+Security measures in place:
+- Email header injection prevention (CRLF sanitisation in `src/utils/security.ts`)
+- Content Security Policy (meta tags in `index.html` + `_headers` for Netlify)
+- `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`
+- Zero dependencies with known vulnerabilities (`npm audit` clean)
+- No credentials, tokens, or secrets in source code
+
+Full security audit: [`docs/SECURITY_AUDIT.md`](docs/SECURITY_AUDIT.md)
+
+---
+
+## Maintenance
+
+### Update dependencies safely
+
+```bash
+npm outdated          # See what's out of date
+npm update            # Apply minor/patch updates
+npm audit             # Check for new vulnerabilities
+npm run build         # Verify build still passes
+```
+
+### After making design changes
+
+1. `npm run dev` — preview locally
+2. `npm run build` — verify no TypeScript or build errors
+3. `git add . && git commit -m "your message"` — commit
+4. `git push origin main` — triggers automatic deployment
+
+---
+
+## License
+
+All design work and portfolio content © Jabir Mahmud Kawsar. All rights reserved.
+The website source code may be referenced for personal portfolio learning purposes.
+
+---
+
+*Built and maintained by Jabir Mahmud Kawsar — Comilla, Bangladesh.*

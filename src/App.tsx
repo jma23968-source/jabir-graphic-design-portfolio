@@ -1,14 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { SelectedWork } from './components/SelectedWork';
-import { About } from './components/About';
-import { SkillsAndProcess } from './components/SkillsAndProcess';
-import { Contact } from './components/Contact';
-import { Footer } from './components/Footer';
-import { ProjectModal } from './components/ProjectModal';
-import { CustomCursor } from './components/CustomCursor';
-import { ImageUploadNotice } from './components/ImageUploadNotice';
+
+// Layout components
+import { Navbar } from './components/layout/Navbar';
+import { Footer } from './components/layout/Footer';
+
+// Common / utility components
+import { CustomCursor } from './components/common/CustomCursor';
+import { ImageUploadNotice } from './components/common/ImageUploadNotice';
+
+// Portfolio modal
+import { ProjectModal } from './components/portfolio/ProjectModal';
+
+// Page sections
+import { Hero } from './sections/Hero/Hero';
+import { SelectedWork } from './sections/Projects/SelectedWork';
+import { About } from './sections/About/About';
+import { SkillsAndProcess } from './sections/Skills/SkillsAndProcess';
+import { Contact } from './sections/Contact/Contact';
+
+// Types
 import { BehanceProject } from './types';
 
 export function App() {

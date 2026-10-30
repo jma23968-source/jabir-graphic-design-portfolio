@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BehanceProject } from '../types';
+import { BehanceProject } from '../../types';
 import { X, ExternalLink, CheckCircle2, Layers, Calendar } from 'lucide-react';
+import { isSafeUrl } from '../../utils/security';
 
 interface ProjectModalProps {
   project: BehanceProject | null;
@@ -27,6 +28,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   }, [project, onClose]);
 
   if (!project) return null;
+
+  const safeBehanceUrl = isSafeUrl(project.behanceUrl) ? project.behanceUrl : '#';
 
   return (
     <AnimatePresence>
@@ -66,7 +69,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
             <button
               onClick={onClose}
-              className="p-2.5 rounded-full bg-ivory-dark hover:bg-ink hover:text-white transition-colors duration-200 text-ink-secondary"
+              className="p-2.5 rounded-full bg-ivory-dark hover:bg-ink hover:text-white transition-colors duration-200 text-ink-secondary cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt"
               aria-label="Close project modal"
             >
               <X className="w-5 h-5" />
@@ -123,7 +126,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {/* Behance Source Verification Card */}
             <div className="p-5 rounded-2xl bg-forest/5 border border-forest/15">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-forest shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-forest shrink-0 mt-0.5 text-emerald-700" />
                 <div>
                   <h5 className="font-medium text-sm text-ink mb-1">
                     Authentic Behance Portfolio Publication
@@ -145,16 +148,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <button
                 onClick={onClose}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-ink-border text-sm font-medium text-ink hover:bg-ivory transition-colors"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-ink-border text-sm font-medium text-ink hover:bg-ivory transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt"
               >
                 Close
               </button>
               
               <a
-                href={project.behanceUrl}
+                href={safeBehanceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-cobalt to-magenta hover:from-cobalt-dark hover:to-magenta-dark text-white text-sm font-medium shadow-md shadow-cobalt/20 transition-all hover:gap-3"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-cobalt to-magenta hover:from-cobalt-dark hover:to-magenta-dark text-white text-sm font-medium shadow-md shadow-cobalt/20 transition-all hover:gap-3 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt"
               >
                 <span>View on Behance</span>
                 <ExternalLink className="w-4 h-4" />

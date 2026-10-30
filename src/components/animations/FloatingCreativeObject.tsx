@@ -65,6 +65,7 @@ export const FloatingCreativeObject: React.FC = () => {
         onMouseLeave={() => setIsHovered(false)}
         className="group relative cursor-pointer"
         aria-label="Interactive creative companion artifact"
+        role="img"
       >
         {/* Soft Ambient Rim Light / Atmospheric Glow (Magenta + Cobalt) */}
         <div 

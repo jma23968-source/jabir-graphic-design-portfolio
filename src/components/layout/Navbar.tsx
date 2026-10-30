@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Mail } from 'lucide-react';
-import { DESIGNER_INFO } from '../data/behanceProjects';
-import { MagneticButton } from './MagneticButton';
+import { DESIGNER_INFO } from '../../data/behanceProjects';
+import { MagneticButton } from '../common/MagneticButton';
+import { SITE_CONFIG } from '../../config/siteConfig';
 
 interface NavbarProps {
   activeSection: string;
@@ -28,13 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'HOME', href: '#home', id: 'home' },
-    { label: 'WORK', href: '#work', id: 'work' },
-    { label: 'ABOUT', href: '#about', id: 'about' },
-    { label: 'SERVICES', href: '#services', id: 'services' },
-    { label: 'CONTACT', href: '#contact', id: 'contact' },
-  ];
+  const navLinks = SITE_CONFIG.navigation;
 
   // Determine if on dark section or light section
   const isDarkSection = !isScrolled || activeSection === 'home' || activeSection === 'contact';
@@ -54,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           {/* Custom JM Monogram Logo */}
           <a 
             href="#home" 
-            className="group flex items-center gap-3 select-none"
+            className="group flex items-center gap-3 select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt rounded-xl"
             aria-label="Jabir Mahmud Kawsar Home"
           >
             <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-cobalt to-[#140408] group-hover:from-magenta group-hover:to-cobalt border border-white/20 transition-all duration-300 flex items-center justify-center text-white shadow-md">
@@ -65,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
               <span className={`font-headline font-semibold text-xs tracking-wider leading-tight transition-colors ${
                 isDarkSection ? 'text-white' : 'text-ink'
               }`}>
-                JABIR MAHMUD
+                {SITE_CONFIG.designer.shortName}
               </span>
               <span className={`font-mono text-[10px] tracking-widest uppercase transition-colors ${
                 isDarkSection ? 'text-white/50' : 'text-ink-muted'
@@ -76,14 +71,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
                   key={link.id}
                   href={link.href}
-                  className={`font-mono text-xs tracking-widest transition-colors duration-200 relative py-1 ${
+                  className={`font-mono text-xs tracking-widest transition-colors duration-200 relative py-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt rounded ${
                     isActive 
                       ? 'text-cyanAccent font-semibold' 
                       : isDarkSection 
@@ -121,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2 rounded-xl border transition-colors ${
+            className={`md:hidden p-2 rounded-xl border transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt ${
               isDarkSection 
                 ? 'bg-white/10 border-white/20 text-white' 
                 : 'bg-white/80 border-ink-border/50 text-ink'
@@ -134,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
         </div>
 
         {/* Scroll Progress Bar at the very bottom edge of navbar (Cobalt -> Magenta -> Cyan) */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10">
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10" aria-hidden="true">
           <div 
             className="h-full bg-gradient-to-r from-cobalt via-magenta to-cyanAccent transition-all duration-150 ease-out"
             style={{ width: `${scrollProgress}%` }}
@@ -152,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 top-[65px] z-30 bg-[#140408]/98 backdrop-blur-xl p-6 md:hidden flex flex-col justify-between border-t border-white/10 text-white"
           >
-            <nav className="flex flex-col gap-5 pt-4">
+            <nav className="flex flex-col gap-5 pt-4" aria-label="Mobile Navigation">
               <span className="font-mono text-[11px] uppercase tracking-widest text-white/50">
                 NAVIGATION
               </span>

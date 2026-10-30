@@ -42,7 +42,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const centerX = left + width / 2;
     const centerY = top + height / 2;
-    // Small, controlled movement range (max 6px)
+    // Controlled subtle magnetic attraction (max 6px boundary)
     const distanceX = (clientX - centerX) * 0.15;
     const distanceY = (clientY - centerY) * 0.15;
     x.set(Math.max(-6, Math.min(6, distanceX)));
@@ -67,15 +67,35 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   );
 
   if (href) {
+    const safeRel = target === '_blank' ? (rel || 'noopener noreferrer') : rel;
     return (
-      <a href={href} target={target} rel={rel} aria-label={ariaLabel} className="inline-block" onClick={onClick}>
+      <a 
+        href={href} 
+        target={target} 
+        rel={safeRel} 
+        aria-label={ariaLabel} 
+        className="inline-block focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt rounded-xl"
+        onClick={onClick}
+      >
         {content}
       </a>
     );
   }
 
   return (
-    <div onClick={onClick} role="button" tabIndex={0} aria-label={ariaLabel} className="inline-block">
+    <div 
+      onClick={onClick} 
+      role="button" 
+      tabIndex={0} 
+      aria-label={ariaLabel} 
+      onKeyDown={(e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && onClick) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className="inline-block focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cobalt rounded-xl cursor-pointer"
+    >
       {content}
     </div>
   );
